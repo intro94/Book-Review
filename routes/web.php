@@ -11,28 +11,23 @@
 |
 */
 
-Route::get('home', function ()
-{
+Route::get('home', function () {
     return redirect('/');
 });
 
-Route::get('/', function ()
-{
+Route::get('/', function () {
     return view('index');
 })->name('home');
 
-Route::get('authors', function ()
-{
+Route::get('authors', function () {
     return view('author-list');
 })->name('author.list');
 
-Route::get('books', function ()
-{
+Route::get('books', function () {
     return view('book-list');
 })->name('book.list');
 
-Route::get('user', function ()
-{
+Route::get('user', function () {
     return view('user', ['user' => auth()->user()->user]);
 })->middleware('auth')->name('user');
 
@@ -44,40 +39,32 @@ Route::post('comments/delete', 'CommentController@commentDelete')->name('comment
 
 Route::post('user/update', 'UserController@userUpdate')->middleware('auth')->name('user.update');
 
-Route::prefix('admin')->name('admin.')->middleware('admin')->group(function ()
-{
-    Route::get('/', function ()
-    {
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::get('/', function () {
         return view('admin.home');
     })->name('home');
 
-    Route::get('authors', function ()
-    {
+    Route::get('authors', function () {
         return view('admin.author-list');
     })->name('author.list');
 
-    Route::get('books', function ()
-    {
+    Route::get('books', function () {
         return view('admin.book-list');
     })->name('book.list');
 
-    Route::get('authors/new', function ()
-    {
+    Route::get('authors/new', function () {
         return view('admin.author-new');
     })->name('author.new');
 
-    Route::get('books/new/{author_id?}', function ($author_id = 0)
-    {
+    Route::get('books/new/{author_id?}', function ($author_id = 0) {
         return view('admin.book-new', ['author_id' => $author_id]);
     })->name('book.new');
 
-    Route::get('comments', function ()
-    {
+    Route::get('comments', function () {
         return view('admin.comments-all');
     })->name('comment.list');
 
-    Route::get('users', function ()
-    {
+    Route::get('users', function () {
         return view('admin.user-list');
     })->name('user.list');
 

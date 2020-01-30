@@ -14,17 +14,17 @@ class EntryPoint extends Authenticatable
     /**
      * @var int
      */
-    const NATIVE_REG = 1;
+    public const NATIVE_REG = 1;
 
     /**
      * @var int
      */
-    const GITHUB_REG = 2;
+    public const GITHUB_REG = 2;
 
     /**
      * @var int
      */
-    const GOOGLE_REG = 3;
+    public const GOOGLE_REG = 3;
 
     /**
      * @var array

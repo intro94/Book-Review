@@ -16,12 +16,12 @@ class User extends Model
     /**
      * @var int
      */
-    const USER_TYPE  = 1;
+    public const USER_TYPE  = 1;
 
     /**
      * @var int
      */
-    const ADMIN_TYPE = 2;
+    public const ADMIN_TYPE = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +51,8 @@ class User extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function commentaries()
+    public function comments()
+        //нет такого слова!
     {
         return $this->hasMany(Comment::class);
     }

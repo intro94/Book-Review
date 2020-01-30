@@ -9,7 +9,7 @@
                 <div class="list-element-text">{{ $user->first_name }} {{ $user->last_name }}</div>
                 <div class="list-relationship-quantity">
                     <div class="quantity-number">
-                        {{ $user->commentaries->count() }}
+                        {{ $user->comments->count() }}
                     </div>
                     <div class="quantity-caption">{{ __('index.caption_comments') }}</div>
                 </div>

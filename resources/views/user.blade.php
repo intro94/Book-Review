@@ -78,6 +78,6 @@
                 </td>
             </tr>
         @endif
-        @includeWhen($user->commentaries, 'helpers.comment-list', ['comments_tree' => $user->commentaries->sortBy('id')])
+        @includeWhen($user->comments, 'helpers.comment-list', ['comments_tree' => $user->comments->sortBy('id')])
     </table>
 @endsection

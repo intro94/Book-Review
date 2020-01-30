@@ -37,7 +37,7 @@
                     <div class="list-element-text">{{ $book->title }}</div>
                     <div class="list-relationship-quantity">
                         <div class="quantity-number">
-                            {{ $book->commentaries->count() }}
+                            {{ $book->comments->count() }}
                         </div>
                         <div class="quantity-caption">{{ __('index.caption_comments') }}</div>
                     </div>

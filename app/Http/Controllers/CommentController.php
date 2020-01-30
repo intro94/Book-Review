@@ -22,9 +22,8 @@ class CommentController extends Controller
             'redirect' => ''
         ];
 
-        try
-        {
-            if(Auth::guest())
+        try {
+            if (Auth::guest())
                 throw new \Exception(__('Access denied'));
 
             $comment_data = $request->all();
@@ -37,9 +36,7 @@ class CommentController extends Controller
                 'comment' => $comment_data['comment_text'],
                 'parent_comment' => $comment_data['parent_id'],
             ]);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $answer['error'] = true;
             $answer['message'] = $e->getMessage();
         }
@@ -59,24 +56,18 @@ class CommentController extends Controller
             'redirect' => ''
         ];
 
-        try
-        {
+        try {
             $comment_id = $request->input('comment_id');
 
             $comment = Comment::findOrFail($comment_id);
 
-            if(Auth::guest() || $comment->user_id != Auth::user()->user->id)
-            {
+            if (Auth::guest() || $comment->user_id != Auth::user()->user->id) {
                 throw new \Exception(__('Access denied'));
-            }
-            else
-            {
+            } else {
                 Comment::where('parent_comment', $comment->id)->update(['parent_comment' => $comment->parent_comment]);
                 $comment->delete();
             }
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $answer['error'] = true;
             $answer['message'] = $e->getMessage();
         }

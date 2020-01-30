@@ -51,6 +51,7 @@ class SocialController extends Controller
      */
     public function github()
     {
+        //хотелось бы самостоятельной реализации
         return Socialite::driver('github')->redirect();
     }
 
@@ -71,12 +72,9 @@ class SocialController extends Controller
      */
     public function githubCallback()
     {
-        try
-        {
+        try {
             $user = Socialite::driver('github')->user();
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return redirect(route('login.github'));
         }
 
@@ -94,12 +92,9 @@ class SocialController extends Controller
      */
     public function googleCallback()
     {
-        try
-        {
+        try {
             $user = Socialite::driver('google')->user();
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return redirect(route('login.google'));
         }
 
@@ -119,22 +114,20 @@ class SocialController extends Controller
      */
     private function findOrCreateUser($oauth_user, $oauth_type)
     {
-        if($auth = EntryPoint::where('type', $oauth_type)->where('login_name', EntryPoint::$oauth_names[$oauth_type]."_{$oauth_user->id}")->first())
-        {
+        if ($auth = EntryPoint::where('type', $oauth_type)->where('login_name', EntryPoint::$oauth_names[$oauth_type] . "_{$oauth_user->id}")->first()) {
             return $auth;
         }
 
-        if(!$user = User::where('email', $oauth_user->email)->first())
-        {
+        if (!$user = User::where('email', $oauth_user->email)->first()) {
+            // есть firstOrCreate
             $user = User::create([
                 'type' => User::USER_TYPE,
                 'email' => $oauth_user->email
             ]);
 
-            if($oauth_type == EntryPoint::GOOGLE_REG)
-            {
-                $user->last_name  = $oauth_user->user['family_name'] ? $oauth_user->user['family_name'] : '';
-                $user->first_name = $oauth_user->user['given_name']  ? $oauth_user->user['given_name']  : '';
+            if ($oauth_type == EntryPoint::GOOGLE_REG) {
+                $user->last_name = $oauth_user->user['family_name'] ? $oauth_user->user['family_name'] : '';
+                $user->first_name = $oauth_user->user['given_name'] ? $oauth_user->user['given_name'] : '';
                 $user->save();
             }
         }
@@ -142,7 +135,7 @@ class SocialController extends Controller
         return EntryPoint::create([
             'user_id' => $user->id,
             'type' => $oauth_type,
-            'login_name' => EntryPoint::$oauth_names[$oauth_type]."_{$oauth_user->id}",
+            'login_name' => EntryPoint::$oauth_names[$oauth_type] . "_{$oauth_user->id}",
         ]);
     }
 }

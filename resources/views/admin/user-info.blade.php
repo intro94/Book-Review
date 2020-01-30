@@ -77,6 +77,6 @@
                 {{ __('Cancel editing') }}
             </td>
         </tr>
-        @includeWhen($user->commentaries, 'admin.comment-list', ['comments_tree' => $user->commentaries->sortBy('id')])
+        @includeWhen($user->comments, 'admin.comment-list', ['comments_tree' => $user->comments->sortBy('id')])
     </table>
 @endsection
